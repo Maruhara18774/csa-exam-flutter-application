@@ -8,8 +8,25 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Text("Home"),
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        title: Text("Home"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Welcome to CSA Exam", style: TextStyle(fontSize: 20.0),),
+            SizedBox(height: 5),
+            Text("Version: 1.0.0 - 06/ 06/ 2022"),
+            SizedBox(height: 5),
+            Text("Developer: Linh Mac Le My"),
+            SizedBox(height: 5),
+            Text("Source material: CSA Exam Preparation - Batch 1 - 2022"),
+          ],
+        ),
+      ),
       drawer: MyDrawer(),
     );
   }
