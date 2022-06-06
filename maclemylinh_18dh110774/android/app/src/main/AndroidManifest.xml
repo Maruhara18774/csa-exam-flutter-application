@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.maclemylinh_18dh110774">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="maclemylinh_18dh110774"
+        android:label="CSA Exam"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

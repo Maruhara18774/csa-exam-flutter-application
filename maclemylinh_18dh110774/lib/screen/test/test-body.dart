@@ -3,6 +3,8 @@ import 'package:maclemylinh_18dh110774/model/question.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+import 'package:maclemylinh_18dh110774/screen/test/complete.dart';
+
 class TestBody extends StatefulWidget {
   final String testKey;
   const TestBody({Key? key, required this.testKey}) : super(key: key);
@@ -131,7 +133,17 @@ class _TestBodyState extends State<TestBody> {
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0, bottom: 10.0),
       child: Container(
-        child: _list.length == 0 ? Text("Loading ..."):
+        child: _list.length == 0 ? Row(
+          children: [
+            CircularProgressIndicator(
+              backgroundColor: Colors.white,
+              color: Colors.purple,
+              strokeWidth: 5,
+            ),
+            SizedBox(width: 20),
+            Text("Loading ...")
+          ],
+        ):
         SingleChildScrollView(
           child: Container(
             width: width,
@@ -264,6 +276,13 @@ class _TestBodyState extends State<TestBody> {
                         nextQuestion();
                       },
                       child: Text("Next"),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
+                    ): SizedBox(),
+                    this.currentQuestion + 1 == _list.length ? ElevatedButton(
+                      onPressed: (){
+                        Navigator.pushNamed(context, CompletePage.routeName,arguments: (this.correct/_list.length)*100);
+                      },
+                      child: Text("Submit"),
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
                     ): SizedBox(),
                   ],

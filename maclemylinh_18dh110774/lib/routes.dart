@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maclemylinh_18dh110774/screen/home.dart';
+import 'package:maclemylinh_18dh110774/screen/test/complete.dart';
 import 'package:maclemylinh_18dh110774/screen/test/csa-m1.dart';
 import 'package:maclemylinh_18dh110774/screen/test/csa-v1375.dart';
 import 'package:maclemylinh_18dh110774/screen/test/random.dart';
@@ -18,5 +19,6 @@ final Map<String, WidgetBuilder> routes = {
   CsaM1Page.routeName: (context) => const CsaM1Page(),
   CsaV1375Page.routeName: (context) => const CsaV1375Page(),
   CsaSandPage.routeName: (context) => const CsaSandPage(),
-  CsaRandomPage.routeName: (context) => const CsaRandomPage()
+  CsaRandomPage.routeName: (context) => const CsaRandomPage(),
+  CompletePage.routeName: (context) => const CompletePage()
 };

@@ -25,6 +25,7 @@ class _CsaSandPageState extends State<CsaSandPage> {
             },
             child: const Icon(Icons.arrow_back_ios),
           ),
+          backgroundColor: Colors.purple,
           title: Text(this.name),
         ),
         body: TestBody(testKey: this.key)

@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
           children: [
             Text("Welcome to CSA Exam", style: TextStyle(fontSize: 20.0),),
             SizedBox(height: 5),
-            Text("Version: 1.0.0 - 06/ 06/ 2022"),
+            Text("Version: 1.0.1 - 06/ 06/ 2022"),
             SizedBox(height: 5),
             Text("Developer: Linh Mac Le My"),
             SizedBox(height: 5),

@@ -25,6 +25,7 @@ class _CsaV1375PageState extends State<CsaV1375Page> {
             },
             child: const Icon(Icons.arrow_back_ios),
           ),
+          backgroundColor: Colors.purple,
           title: Text(this.name),
         ),
         body: TestBody(testKey: this.key)

@@ -24,9 +24,12 @@ class MyDrawer extends StatelessWidget {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.purple,
+              image: DecorationImage(
+                image: NetworkImage('https://i.pinimg.com/600x315/4e/12/cf/4e12cf45d8719a39e31c3f4726e1b2c2.jpg'),
+                fit: BoxFit.cover,
+              ),
             ),
-            child: Text('CSA Exam'),
+            child: Text('CSA Exam', style: TextStyle(fontSize: 20.0),),
           ),
           ListTile(
             title: const Text('Home'),

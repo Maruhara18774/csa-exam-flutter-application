@@ -25,6 +25,7 @@ class _Test4PageState extends State<Test4Page> {
             },
             child: const Icon(Icons.arrow_back_ios),
           ),
+          backgroundColor: Colors.purple,
           title: Text(this.name),
         ),
         body: TestBody(testKey: this.key)
