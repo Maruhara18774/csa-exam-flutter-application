@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:maclemylinh_18dh110774/screen/home.dart';
-import 'package:maclemylinh_18dh110774/screen/test-body.dart';
+import 'package:maclemylinh_18dh110774/screen/random/random-body.dart';
 
-class Test5Page extends StatefulWidget {
-  static String routeName = "/test5";
-  const Test5Page({Key? key}) : super(key: key);
+class CsaRandom15Page extends StatefulWidget {
+  static String routeName = "/random15";
+  const CsaRandom15Page({Key? key}) : super(key: key);
 
   @override
-  State<Test5Page> createState() => _Test5PageState();
+  State<CsaRandom15Page> createState() => _CsaRandom15PageState();
 }
 
-class _Test5PageState extends State<Test5Page> {
-  String key = "test-5";
-  String name = "Test 5";
+class _CsaRandom15PageState extends State<CsaRandom15Page> {
+  String name = "Random 15";
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           leading: GestureDetector(
@@ -28,7 +26,7 @@ class _Test5PageState extends State<Test5Page> {
           backgroundColor: Colors.purple,
           title: Text(this.name),
         ),
-        body: TestBody(testKey: this.key)
+        body: RandomBody(questionCount: 15)
     );
   }
 }

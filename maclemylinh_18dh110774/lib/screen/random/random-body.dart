@@ -1,19 +1,21 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:maclemylinh_18dh110774/model/question.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-import 'package:maclemylinh_18dh110774/screen/test/complete.dart';
+import 'package:maclemylinh_18dh110774/screen/complete.dart';
 
-class TestBody extends StatefulWidget {
-  final String testKey;
-  const TestBody({Key? key, required this.testKey}) : super(key: key);
+class RandomBody extends StatefulWidget {
+  final int questionCount;
+  const RandomBody({Key? key, required this.questionCount}) : super(key: key);
 
   @override
-  State<TestBody> createState() => _TestBodyState();
+  State<RandomBody> createState() => _RandomBodyState();
 }
 
-class _TestBodyState extends State<TestBody> {
+class _RandomBodyState extends State<RandomBody> {
   String URL = "https://script.google.com/macros/s/AKfycbxLIt26o0NW8_KJ5X1zcfWDb7uq24djJxRkUFWX48906qFiRcbTLvfzKgh2xw_RVK4/exec";
   List<Question> _list = [];
   int currentQuestion = 0;
@@ -26,6 +28,7 @@ class _TestBodyState extends State<TestBody> {
   bool option6 = false;
   double percentage = 0;
   bool isShowProcess = false;
+  bool isShowHint = false;
   double percentagePerQues = 0;
   List<int> corrrectAnswerAt = [];
 
@@ -36,12 +39,41 @@ class _TestBodyState extends State<TestBody> {
   }
 
   getDataFromSheet() async {
+    List<String> testKey = [
+      "test-2",
+      "test-3",
+      "test-4",
+      "test-5",
+      "csa-m1",
+      "csa-v1375",
+      "sad",
+      "udemy-1",
+      "udemy-2",
+      "udemy-3",
+      "udemy-4",
+      "udemy-5",
+      "real-1",
+    ];
+    List<Question> rawList = [];
     List<Question> list = [];
-    var raw = await http.get( Uri.parse(this.URL +"?test="+widget.testKey));
-    var jsonResult = convert.jsonDecode(raw.body);
-    jsonResult.forEach((element){
-      list.add(Question.fromJson(element));
-    });
+    for(var i = 0;i<testKey.length;i++){
+      var raw = await http.get( Uri.parse(this.URL +"?test="+testKey[i])).catchError((err){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Failed to load data. Please load again."),
+        ));
+      });
+      var jsonResult = convert.jsonDecode(raw.body);
+      jsonResult.forEach((element){
+        rawList.add(Question.fromJson(element));
+      });
+    }
+    for(var i = 0;i<widget.questionCount;i++){
+      final random = new Random();
+      var randNum = random.nextInt(rawList.length);
+      var element = rawList[randNum];
+      list.add(element);
+      rawList.remove(element);
+    }
     setState(() {
       this._list = list;
       this.currentQuestion = 0;
@@ -59,6 +91,18 @@ class _TestBodyState extends State<TestBody> {
   hideProcess(){
     setState(() {
       this.isShowProcess = false;
+    });
+  }
+
+  showHint(){
+    setState(() {
+      this.isShowHint = true;
+    });
+  }
+
+  hideHint(){
+    setState(() {
+      this.isShowHint = false;
     });
   }
 
@@ -268,8 +312,7 @@ class _TestBodyState extends State<TestBody> {
                       },
                       child: Text("Hide process"),
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
-                    )
-                    ,
+                    ),
                     SizedBox(width: 5),
                     this.currentQuestion + 1 != _list.length ? ElevatedButton(
                       onPressed: (){
@@ -285,12 +328,34 @@ class _TestBodyState extends State<TestBody> {
                       child: Text("Submit"),
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
                     ): SizedBox(),
+                    SizedBox(width: 5),
+                    !this.isShowHint ?
+                    ElevatedButton(
+                      onPressed: (){
+                        showHint();
+                      },
+                      child: Text("Show hint"),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
+                    ):
+                    ElevatedButton(
+                      onPressed: (){
+                        hideHint();
+                      },
+                      child: Text("Hide hint"),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
+                    ),
                   ],
                 ),
                 this.isShowProcess ? Column(
                   children: [
                     SizedBox(height: 20),
                     Text("Passed: "+ ((this.correct/_list.length)*100).round().toString()+"% / "+this.percentage.round().toString()+"%")
+                  ],
+                ): SizedBox(),
+                this.isShowHint ? Column(
+                  children: [
+                    SizedBox(height: 20),
+                    Text(_list[currentQuestion].test! + " - Question "+_list[currentQuestion].order.toString()),
                   ],
                 ): SizedBox()
               ],

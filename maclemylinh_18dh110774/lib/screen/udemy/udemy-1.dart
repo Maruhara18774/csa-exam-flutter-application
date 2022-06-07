@@ -2,21 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:maclemylinh_18dh110774/screen/home.dart';
 import 'package:maclemylinh_18dh110774/screen/test-body.dart';
 
-class Test5Page extends StatefulWidget {
-  static String routeName = "/test5";
-  const Test5Page({Key? key}) : super(key: key);
+class Udemy1Page extends StatefulWidget {
+  static String routeName = "/udemy1";
+  const Udemy1Page({Key? key}) : super(key: key);
 
   @override
-  State<Test5Page> createState() => _Test5PageState();
+  State<Udemy1Page> createState() => _Udemy1PageState();
 }
 
-class _Test5PageState extends State<Test5Page> {
-  String key = "test-5";
-  String name = "Test 5";
+class _Udemy1PageState extends State<Udemy1Page> {
+  String key = "udemy-1";
+  String name = "Udemy 1";
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           leading: GestureDetector(

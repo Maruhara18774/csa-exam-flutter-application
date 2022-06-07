@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:maclemylinh_18dh110774/screen/home.dart';
-import 'package:maclemylinh_18dh110774/screen/test/test-body.dart';
+import 'package:maclemylinh_18dh110774/screen/test-body.dart';
 
-class CsaSandPage extends StatefulWidget {
-  static String routeName = "/sand";
-  const CsaSandPage({Key? key}) : super(key: key);
+class Udemy3Page extends StatefulWidget {
+  static String routeName = "/udemy3";
+  const Udemy3Page({Key? key}) : super(key: key);
 
   @override
-  State<CsaSandPage> createState() => _CsaSandPageState();
+  State<Udemy3Page> createState() => _Udemy3PageState();
 }
 
-class _CsaSandPageState extends State<CsaSandPage> {
-  String key = "sad";
-  String name = "Sandiego Version";
+class _Udemy3PageState extends State<Udemy3Page> {
+  String key = "udemy-3";
+  String name = "Udemy 3";
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           leading: GestureDetector(
