@@ -26,6 +26,7 @@ class _TestBodyState extends State<TestBody> {
   bool option6 = false;
   double percentage = 0;
   bool isShowProcess = false;
+  bool isShowAnswer = false;
   double percentagePerQues = 0;
   List<int> corrrectAnswerAt = [];
 
@@ -56,6 +57,9 @@ class _TestBodyState extends State<TestBody> {
 
   showProcess(){
     setState(() {
+      if(this.isShowAnswer){
+        this.isShowAnswer = false;
+      }
       this.isShowProcess = true;
     });
   }
@@ -63,6 +67,20 @@ class _TestBodyState extends State<TestBody> {
   hideProcess(){
     setState(() {
       this.isShowProcess = false;
+    });
+  }
+  showAnswer(){
+    setState(() {
+      if(this.isShowProcess){
+        this.isShowProcess = false;
+      }
+      this.isShowAnswer = true;
+    });
+  }
+
+  hideAnswer(){
+    setState(() {
+      this.isShowAnswer = false;
     });
   }
 
@@ -131,6 +149,10 @@ class _TestBodyState extends State<TestBody> {
     });
   }
 
+  List<String> getAnswer(){
+    final split = _list[currentQuestion].answer!.split(',');
+    return split;
+  }
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -258,23 +280,6 @@ class _TestBodyState extends State<TestBody> {
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
                     ) : SizedBox(),
                     SizedBox(width: 5),
-                    !this.isShowProcess ?
-                    ElevatedButton(
-                      onPressed: (){
-                        showProcess();
-                      },
-                      child: Text("Show process"),
-                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
-                    ):
-                    ElevatedButton(
-                      onPressed: (){
-                        hideProcess();
-                      },
-                      child: Text("Hide process"),
-                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
-                    )
-                    ,
-                    SizedBox(width: 5),
                     this.currentQuestion + 1 != _list.length ? ElevatedButton(
                       onPressed: (){
                         nextQuestion();
@@ -291,12 +296,66 @@ class _TestBodyState extends State<TestBody> {
                     ): SizedBox(),
                   ],
                 ),
+                Row(
+                  children: [
+                    !this.isShowProcess ?
+                    ElevatedButton(
+                      onPressed: (){
+                        showProcess();
+                      },
+                      child: Text("Show process"),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
+                    ):
+                    ElevatedButton(
+                      onPressed: (){
+                        hideProcess();
+                      },
+                      child: Text("Hide process"),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
+                    ),
+                    SizedBox(width: 5),
+                    !this.isShowAnswer ?
+                    ElevatedButton(
+                      onPressed: (){
+                        showAnswer();
+                      },
+                      child: Text("Show answer"),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
+                    ):
+                    ElevatedButton(
+                      onPressed: (){
+                        hideAnswer();
+                      },
+                      child: Text("Hide answer"),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
+                    ),
+                    SizedBox(width: 5),
+                  ],
+                ),
+                SizedBox(height: 20),
+                this.isShowProcess ?
+                Text("Process",style: TextStyle(fontSize: 25.0)): SizedBox(),
                 this.isShowProcess ? Column(
                   children: [
                     SizedBox(height: 20),
                     Text("Passed: "+ ((this.correct/_list.length)*100).round().toString()+"% / "+this.percentage.round().toString()+"%")
                   ],
-                ): SizedBox()
+                ): SizedBox(),
+                this.isShowAnswer ?
+                Text("Answer",style: TextStyle(fontSize: 25.0)): SizedBox(),
+                this.isShowAnswer ? Column(
+                  children: [
+                    SizedBox(height: 20),
+                    ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: getAnswer().length,
+                        itemBuilder: (context, index) {
+                        return Text((index + 1).toString() + " - " +getAnswer()[index]);
+                    })
+                  ],
+                ): SizedBox(),
+                SizedBox(height: 20)
               ],
             ),
           ),

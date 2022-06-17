@@ -39,34 +39,17 @@ class _RandomBodyState extends State<RandomBody> {
   }
 
   getDataFromSheet() async {
-    List<String> testKey = [
-      "test-2",
-      "test-3",
-      "test-4",
-      "test-5",
-      "csa-m1",
-      "csa-v1375",
-      "sad",
-      "udemy-1",
-      "udemy-2",
-      "udemy-3",
-      "udemy-4",
-      "udemy-5",
-      "real-1",
-    ];
     List<Question> rawList = [];
     List<Question> list = [];
-    for(var i = 0;i<testKey.length;i++){
-      var raw = await http.get( Uri.parse(this.URL +"?test="+testKey[i])).catchError((err){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Failed to load data. Please load again."),
-        ));
-      });
-      var jsonResult = convert.jsonDecode(raw.body);
-      jsonResult.forEach((element){
-        rawList.add(Question.fromJson(element));
-      });
-    }
+    var raw = await http.get( Uri.parse(this.URL +"?test=all")).catchError((err){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Failed to load data. Please load again."),
+      ));
+    });
+    var jsonResult = convert.jsonDecode(raw.body);
+    jsonResult.forEach((element){
+      rawList.add(Question.fromJson(element));
+    });
     for(var i = 0;i<widget.questionCount;i++){
       final random = new Random();
       var randNum = random.nextInt(rawList.length);
